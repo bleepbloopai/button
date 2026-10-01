@@ -1,6 +1,43 @@
-<button id="startButton">Press Button</button>
-<title>Clik Da Butn</title>
-<script>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repeated Confirmation Questions</title>
+  <style>
+    :root { color-scheme: dark; }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background: #111827;
+      color: #f9fafb;
+      font-family: system-ui, sans-serif;
+    }
+
+    button {
+      padding: 0.8rem 1.2rem;
+      border: 1px solid #4b5563;
+      border-radius: 0.5rem;
+      background: #374151;
+      color: #f9fafb;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:hover { background: #4b5563; }
+    button:disabled { cursor: wait; opacity: 0.6; }
+  </style>
+</head>
+<body>
+  <button id="startButton" type="button">Press Button</button>
+
+  <script>
+
   const questions = [
 "100% sure?",
 "Absolutely positive?",
@@ -762,14 +799,18 @@
 "Your mind's made up?",
   ];
 
-  const maxAttempts = 20;
+  const startButton = document.getElementById("startButton");
+  let isAsking = false;
 
-  document.getElementById("startButton").addEventListener("click", askAgain);
+  startButton.addEventListener("click", () => {
+    if (!isAsking) askAgain();
+  });
 
-  function askAgain(attempt = 0) {
-    if (attempt >= maxAttempts) {
-      alert("Finished asking.");
-      return;
+
+  function askAgain() {
+    if (!isAsking) {
+      isAsking = true;
+      startButton.disabled = true;
     }
 
     // Pick a random question
@@ -781,7 +822,9 @@
 
     // Wait briefly before showing the next popup
     setTimeout(() => {
-      askAgain(attempt + 1);
+      if (isAsking) askAgain();
     }, 100);
   }
-</script>
+  </script>
+</body>
+</html>
