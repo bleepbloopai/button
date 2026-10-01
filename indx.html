@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Exit Modal</title>
+
+  <style>
+    dialog {
+      width: min(90%, 400px);
+      padding: 2rem;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    dialog h2 {
+      margin-top: 0;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    button {
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .cancel {
+      background: #ddd;
+    }
+
+    .exit {
+      background: #d33;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <a href="https://example.com" id="exitLink">
+    Exit page
+  </a>
+
+  <dialog id="exitModal">
+    <h2>Are you sure?</h2>
+    <p>Are you sure you want to exit?</p>
+
+    <div class="modal-buttons">
+      <button class="cancel" id="cancelButton">Cancel</button>
+      <button class="exit" id="confirmButton">Exit</button>
+    </div>
+  </dialog>
+
+  <script>
+    const exitLink = document.getElementById("exitLink" );
+    const modal = document.getElementById("exitModal");
+    const cancelButton = document.getElementById("cancelButton");
+    const confirmButton = document.getElementById("confirmButton");
+
+    exitLink.addEventListener("click", function (event) {
+      event.preventDefault();
+      modal.showModal();
+    });
+
+    cancelButton.addEventListener("click", function () {
+      modal.close();
+    });
+
+    confirmButton.addEventListener("click", function () {
+      window.location.href = exitLink.href;
+    });
+
+    // Close when clicking outside the dialog
+    modal.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        modal.close();
+      }
+    });
+  </script>
+</body>
+</html>
