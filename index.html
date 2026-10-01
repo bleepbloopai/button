@@ -819,11 +819,6 @@
 
     // The result is ignored, so OK and Cancel both continue
     confirm(question);
-
-    // Wait briefly before showing the next popup
-    setTimeout(() => {
-      if (isAsking) askAgain();
-    }, 100);
   }
   </script>
 </body>
